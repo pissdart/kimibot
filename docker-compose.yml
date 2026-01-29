@@ -1,0 +1,45 @@
+services:
+  kimibot-gateway:
+    image: ${KIMIBOT_IMAGE:-kimibot:local}
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      KIMIBOT_GATEWAY_TOKEN: ${KIMIBOT_GATEWAY_TOKEN}
+      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
+      CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
+      CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
+    volumes:
+      - ${KIMIBOT_CONFIG_DIR}:/home/node/.kimibot
+      - ${KIMIBOT_WORKSPACE_DIR}:/home/node/kimi
+    ports:
+      - "${KIMIBOT_GATEWAY_PORT:-18789}:18789"
+      - "${KIMIBOT_BRIDGE_PORT:-18790}:18790"
+    init: true
+    restart: unless-stopped
+    command:
+      [
+        "node",
+        "dist/index.js",
+        "gateway",
+        "--bind",
+        "${KIMIBOT_GATEWAY_BIND:-lan}",
+        "--port",
+        "${KIMIBOT_GATEWAY_PORT:-18789}"
+      ]
+
+  kimibot-cli:
+    image: ${KIMIBOT_IMAGE:-kimibot:local}
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      BROWSER: echo
+      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
+      CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
+      CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
+    volumes:
+      - ${KIMIBOT_CONFIG_DIR}:/home/node/.kimibot
+      - ${KIMIBOT_WORKSPACE_DIR}:/home/node/kimi
+    stdin_open: true
+    tty: true
+    init: true
+    entrypoint: ["node", "dist/index.js"]

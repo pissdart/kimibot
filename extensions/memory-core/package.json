@@ -1,0 +1,17 @@
+{
+  "name": "@kimibot/memory-core",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "Kimibot core memory search plugin",
+  "kimibot": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "peerDependencies": {
+    "kimibot": ">=2026.1.26"
+  },
+  "devDependencies": {
+    "kimibot": "workspace:*"
+  }
+}

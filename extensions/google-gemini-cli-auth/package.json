@@ -1,0 +1,11 @@
+{
+  "name": "@kimibot/google-gemini-cli-auth",
+  "version": "2026.1.27-beta.1",
+  "type": "module",
+  "description": "Kimibot Gemini CLI OAuth provider plugin",
+  "kimibot": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

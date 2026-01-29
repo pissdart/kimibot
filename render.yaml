@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: kimibot
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: SETUP_PASSWORD
+        sync: false
+      - key: KIMIBOT_STATE_DIR
+        value: /data/.kimibot
+      - key: KIMIBOT_WORKSPACE_DIR
+        value: /data/workspace
+      - key: KIMIBOT_GATEWAY_TOKEN
+        generateValue: true
+    disk:
+      name: kimibot-data
+      mountPath: /data
+      sizeGB: 1
